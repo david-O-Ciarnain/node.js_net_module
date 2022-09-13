@@ -28,17 +28,22 @@ server.on('connection',(socket) => {
         console.log("number of clients connected " + connectedClients.length);
     })
 
-    //error handling on coonection
+    //error handling on connection
     socket.on('error',(error) => {
-        console.log("Error connecting to server");
-        console.error(error.message);
+       
+        console.error(` ERROR ON SERVER: ${error.message}`);
+
+            if(error.message === "read ECONNRESET"){
+                console.log("Client abruptly closed connection to server");
+            }
     })
 
     //get address and port info from client 
    console.log(`client address ${socket.remoteAddress}, client port ${socket.remotePort}`);
    
-    socket.write(`SERVER: Welcome  to best chatroom on the web, you are now connected`)
-    socket.write('SERVER: What is your name?')
+    socket.write(`SERVER: Welcome  to best chatroom on the web, you are now connected\n`)
+    socket.write('SERVER: What is your name?\n')
+    socket.write("SERVER: press enter if you like to be anonymous\n")
     readline.on('line',(input) => {
         socket.write(`SERVER: ${input}`)
     })

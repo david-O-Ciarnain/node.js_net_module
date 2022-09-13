@@ -8,6 +8,7 @@ const readline = rl.createInterface({
 })
 
 let name
+
 let PORT = 8080
 const HOST = "localhost"
 
@@ -38,11 +39,15 @@ client.on('end',() => {
     readline.on('line',(input) => {
         if(name === undefined){
             name = input
-            console.log(`Your name is set to ${name} `);
-            client.write(`${name === undefined ? "CLIENTS name is CLIENT":"CLIENTS name is " + input}`)
+            //information to the client
+            console.log(`Your name is set to ${ name === "" ? "anonymous" : name} `);
+            console.log("choose whitch chatroom you like to enter");
+
+            //let the server know the name of the client
+            client.write(`${name === "" ? "CLIENTS name is anonymous":"CLIENTS name is " + input}`)
 
         }else{
-        client.write(`${name === "" ? "CLIENT": name}: ${input}`)
+        client.write(`${name === "" ? "anonymous": name}: ${input}`)
     }
     })
 
