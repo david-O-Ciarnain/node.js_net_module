@@ -36,7 +36,14 @@ client.on('end',() => {
 })
 
     readline.on('line',(input) => {
-        client.write(`${name === undefined ? "CLIENT": name}: ${input}`)
+        if(name === undefined){
+            name = input
+            console.log(`Your name is set to ${name} `);
+            client.write(`${name === undefined ? "CLIENTS name is CLIENT":"CLIENTS name is " + input}`)
+
+        }else{
+        client.write(`${name === "" ? "CLIENT": name}: ${input}`)
+    }
     })
 
 

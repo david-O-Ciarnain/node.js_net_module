@@ -46,7 +46,6 @@ server.on('connection',(socket) => {
 
     socket.on('data',(data) => {
         //convert client data to string from bites
-        
         console.log(data.toString());
     })
 })
