@@ -1,3 +1,4 @@
+const { wrap } = require("module")
 const net = require("net")
 const rl = require("readline")
 
@@ -5,9 +6,6 @@ const readline = rl.createInterface({
     input:process.stdin,
     output:process.stdout
 })
-
-
-
 
 const PORT = 8080
 const HOST = "localhost"
@@ -34,6 +32,7 @@ client.on('data',(data) =>{
 client.on('end',() => {
     console.log("CLIENT: diconnect from server");
 })
+
 
 readline.on('line',(input) => {
     client.write(`CLIENT: ${input}`)

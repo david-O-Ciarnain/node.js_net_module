@@ -1,5 +1,7 @@
 const net = require("net")
 const rl = require("readline")
+const prompt = require("prompt-sync")
+const connectedClients = []
 
 const readline = rl.createInterface({
     input:process.stdin,
@@ -12,6 +14,9 @@ const server = net.createServer()
 
 server.on('connection',(socket) => {
     console.log("new Client connected to server\n");
+    
+    connectedClients.push(socket)
+    console.log("number of clients connected " + connectedClients.length);
 
     //show that client has left the server
     socket.once('close',() => console.log('close client connection'))
@@ -24,17 +29,20 @@ server.on('connection',(socket) => {
 
     //get address and port info from client 
    console.log(`client address ${socket.remoteAddress}, client port ${socket.remotePort}`);
-
-    socket.write("SERVER: Welcome to best chatroom on the web, you are now connected<br>")
+   
+    socket.write(`SERVER: Welcome ${name} to best chatroom on the web, you are now connected `)
     readline.on('line',(input) => {
         socket.write(`SERVER: ${input}`)
     })
+
+
     socket.on('data',(data) => {
-        console.log(data);
         //convert client data to string from bites
         console.log(data.toString());
     })
 })
+
+
 server.on('error',(error) => {
     // checks if port is occupied
     if(error.code === "EADDRINUSE"){
