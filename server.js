@@ -28,7 +28,7 @@ server.on('connection',(socket) => {
         console.log("number of clients connected " + connectedClients.length);
     })
 
-    //error handling on connection
+    
     socket.on('error',(error) => {
        
         console.error(` ERROR ON SERVER: ${error.message}`);
@@ -41,9 +41,12 @@ server.on('connection',(socket) => {
     //get address and port info from client 
    console.log(`client address ${socket.remoteAddress}, client port ${socket.remotePort}\n`);
    
+   //Client iformation when connect to server
     socket.write(`SERVER: Welcome  to best chatroom on the web, you are now connected\n`)
     socket.write("SERVER: You can now chat with other users\n")
     socket.write("SERVER: write end to exit server")
+
+    //server can send messages to alla clients
     readline.on('line',(input) => {
         socket.write(`SERVER: ${input}`)
     })

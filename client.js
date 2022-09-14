@@ -66,7 +66,6 @@ client.on('data',(data) =>{
  
 })
 
-
 //log that client has disconnected from server
 client.on('end',() => {
     console.log(`you diconnected from the server`);
