@@ -39,11 +39,10 @@ server.on('connection',(socket) => {
     })
 
     //get address and port info from client 
-   console.log(`client address ${socket.remoteAddress}, client port ${socket.remotePort}`);
+   console.log(`client address ${socket.remoteAddress}, client port ${socket.remotePort}\n`);
    
     socket.write(`SERVER: Welcome  to best chatroom on the web, you are now connected\n`)
-    socket.write('SERVER: What is your name?\n')
-    socket.write("SERVER: press enter if you like to be anonymous\n")
+    socket.write("SERVER: write end to exit server")
     readline.on('line',(input) => {
         socket.write(`SERVER: ${input}`)
     })
@@ -51,7 +50,9 @@ server.on('connection',(socket) => {
 
     socket.on('data',(data) => {
         //convert client data to string from bites
+  
         console.log(data.toString());
+        
     })
 })
 
