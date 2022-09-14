@@ -18,12 +18,17 @@ let userName
 async function setServerAndUserName(){
  
         console.log("witch host do you whant to connect to? ");
-        console.log("Host names:\n java \n javaScript \n localhost \n");
+        console.log("Host names:\n java \n javaScript \n localhost \n groupchat");
         serverName =  await prompt()
     for(;;){
         if(serverName === 'java') break
        else if(serverName === "javaScript" ) break
        else if(serverName === "localhost") break
+       else if(serverName === "groupchat"){
+        console.log("Enter groupchat");
+        PORT = 8081
+        break
+       }
        else {
         console.log("Please enter valid host name ")
         console.log("Host names java \n javaScript \n localhost");
