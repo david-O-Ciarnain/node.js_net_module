@@ -17,26 +17,28 @@ let userName
 
 async function setServerAndUserName(){
  
-    
-    if(serverName === undefined){
         console.log("witch host do you whant to connect to? ");
         console.log("Host names:\n java \n javaScript \n localhost \n");
         serverName =  await prompt()
-        serverName === "" ? "localhost":serverName
-    }
-
-   else if(serverName !== 'java'||serverName !== "javaScript" || serverName !== "localhost"){
+    for(;;){
+        if(serverName === 'java') break
+       else if(serverName === "javaScript" ) break
+       else if(serverName === "localhost") break
+       else {
         console.log("Please enter valid host name ")
         console.log("Host names java \n javaScript \n localhost");
         serverName = await prompt("witch host do you whant to connect to? ")
+       }
+
     }
-    if(userName === undefined){
-        console.log(" press enter if you like to be anonymous\n");
+    console.log(" press enter if you like to be anonymous\n");
         userName =  prompt("whats your name? ")
         console.log(`Your name is set to ${ userName === "" ? "anonymous" : userName} `);
-    }
     
-    name =  ""? "anonymous": userName
+    
+    name = ""? "anonymous": userName
+   
+    
     HOST = serverName
    
 }
@@ -48,7 +50,6 @@ const client = net.createConnection({
 },
 (error) =>{
     if(error){
-        //save info in file
         console.log("faild to connect to server");
         console.error(error.message);
     }
