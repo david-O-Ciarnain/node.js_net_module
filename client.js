@@ -11,22 +11,34 @@ let name
 
 let PORT = 8080
 let HOST
-console.log("Host names:\n java \n javaScript \n localhost");
-let serverName //= prompt("witch host do you whant to connect to?")
+
+let serverName
 let userName 
 
 async function setServerAndUserName(){
-    serverName = await prompt("witch host do you whant to connect to?")
-    if(serverName !== 'java'||serverName !== "javaScript" || serverName !== "localhost"){
-        console.log("Please enter valid host name")
-        console.log("Host names java \n javaScript \n localhost");
-        serverName = await prompt("witch host do you whant to connect to?")
+ 
+    
+    if(serverName === undefined){
+        console.log("witch host do you whant to connect to? ");
+        console.log("Host names:\n java \n javaScript \n localhost \n");
+        serverName =  await prompt()
+        serverName === "" ? "localhost":serverName
     }
-    console.log(" press enter if you like to be anonymous\n");
-    userName =  prompt("whats your name?")
-    name = userName
+
+   else if(serverName !== 'java'||serverName !== "javaScript" || serverName !== "localhost"){
+        console.log("Please enter valid host name ")
+        console.log("Host names java \n javaScript \n localhost");
+        serverName = await prompt("witch host do you whant to connect to? ")
+    }
+    if(userName === undefined){
+        console.log(" press enter if you like to be anonymous\n");
+        userName =  prompt("whats your name? ")
+        console.log(`Your name is set to ${ userName === "" ? "anonymous" : userName} `);
+    }
+    
+    name =  ""? "anonymous": userName
     HOST = serverName
-    console.log(HOST,name);
+   
 }
 
 setServerAndUserName()
@@ -40,8 +52,10 @@ const client = net.createConnection({
         console.log("faild to connect to server");
         console.error(error.message);
     }
-   
-    console.log("Client: connected to server");
+   //let the server know the name of the client
+   client.write(`${name === "" ? "CLIENTS name is anonymous":"CLIENTS name is " + name}`)
+
+    console.log(`${name === "" ? "anonymous": name}: connected to ${serverName} chatroom`);
 })
 
 //get data from server
@@ -65,12 +79,6 @@ client.on('end',() => {
        else if(name === undefined && input !== "end"){
             //information to the client
             console.log(client.remoteAddress);
-            console.log(`Your name is set to ${ name === "" ? "anonymous" : name} `);
-         
-
-            //let the server know the name of the client
-            client.write(`${name === "" ? "CLIENTS name is anonymous":"CLIENTS name is " + input}`)
-
         }
         else{
         client.write(`${name === "" ? "anonymous": name}: ${input}`)

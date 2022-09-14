@@ -42,6 +42,7 @@ server.on('connection',(socket) => {
    console.log(`client address ${socket.remoteAddress}, client port ${socket.remotePort}\n`);
    
     socket.write(`SERVER: Welcome  to best chatroom on the web, you are now connected\n`)
+    socket.write("SERVER: You can now chat with other users\n")
     socket.write("SERVER: write end to exit server")
     readline.on('line',(input) => {
         socket.write(`SERVER: ${input}`)
