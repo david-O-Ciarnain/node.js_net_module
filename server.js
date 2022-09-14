@@ -2,7 +2,7 @@ const net = require("net")
 const rl = require("readline")
 const prompt = require("prompt-sync")
 const connectedClients = []
-const clientsName = []
+
 
 const readline = rl.createInterface({
     input:process.stdin,
@@ -42,7 +42,7 @@ server.on('connection',(socket) => {
    console.log(`client address ${socket.remoteAddress}, client port ${socket.remotePort}\n`);
    
    //Client iformation when connect to server
-    socket.write(`SERVER: Welcome \n`)
+    socket.write(`SERVER: Welcome  to best chatroom on the web, you are now connected\n`)
     socket.write("SERVER: You can now chat with other users\n")
     socket.write("SERVER: write end to exit server")
 
@@ -55,7 +55,7 @@ server.on('connection',(socket) => {
     socket.on('data',(data) => {
         //convert client data to string from bites
   
-        console.log(data.toString());
+        console.log('\x1b[33m%s\x1b[0m',data.toString());
         
     })
 })
