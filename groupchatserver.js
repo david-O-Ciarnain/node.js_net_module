@@ -1,5 +1,6 @@
 const net = require("net")
 
+// array that saves all the sockets connections/endpoints 
 let sockets = []
 
 const server = net.createServer()
@@ -7,7 +8,7 @@ const server = net.createServer()
 server.on('connection',socket => {
 
     sockets.push(socket)
-    console.log("Client connected");
+    console.log("Client connected to groupchat server");
 
     socket.on('data',(data) => {
         broadcast(data.toString(),socket)
@@ -19,17 +20,18 @@ server.on('connection',socket => {
     })
 
     socket.on('close',() => {
-        console.log("A Cleient has left the groupchat")
+        console.log("A Client has left the groupchat")
         
     })
 
-    socket.write("Welcome to the groupchat!! \n write 'exit' to leve groupchat \n you can now send messages to other pepole that is connected to the groupchat")
+    socket.write("Welcome to the groupchat!! \n write 'exit' to leve groupchat and then 'end' to stop connection \n "+
+    "you can now send messages to other pepole that is connected to the groupchat")
 
 
 })
 
 function broadcast(message,socketSent){
-    //check how in sockets array whant to exit groupchat
+    //check who in sockets array whant to exit groupchat
     if(message === "exit"){
         let userIndex = sockets.indexOf(socketSent)
         sockets.splice(userIndex,1)
