@@ -24,7 +24,7 @@ server.on('connection',socket => {
         
     })
 
-    socket.write("Welcome to the groupchat!! \n write 'exit' to leve groupchat and then 'end' to stop connection \n "+
+    socket.write("Welcome to the groupchat!! \n write 'exit' to leve groupchat  to stop connection \n "+
     "you can now send messages to other pepole that is connected to the groupchat")
 
 
